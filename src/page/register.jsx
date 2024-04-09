@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import{Button} from "antd";
+import { Button } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
@@ -38,6 +38,7 @@ const RegisterPage = () => {
         subTitle="电子书城"
         style={{ height: "80vh" }}
       >
+        <div style={{ height: "1em" }}></div>
         <ProFormText
           name="username"
           fieldProps={{
