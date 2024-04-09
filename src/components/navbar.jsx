@@ -52,7 +52,7 @@ export default function NavBar() {
   return (
     <Row className="navbar" justify="start">
       <Col>
-        <Link to="/">Book Store</Link>
+        <Link to="/">Online Bookstore</Link>
       </Col>
       <Col flex="auto">
         <Menu
