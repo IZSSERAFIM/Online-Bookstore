@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import BasicLayout from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
-import login  from "../service/login";
+import login from "../service/login";
 
 const LoginPage = () => {
   const [errorMessage, setErrorMessage] = useState("");
