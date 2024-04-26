@@ -3,7 +3,7 @@ import { List, Avatar } from "antd"
 export default function OrderItemList({ orderItems }) {
     return <List
         dataSource={orderItems}
-        renderItem={(item, _) => (
+        renderItem={(item) => (
             <List.Item>
                 <List.Item.Meta
                     avatar={<Avatar shape="square" size={80} src={item.book.cover} />}

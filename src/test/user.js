@@ -5,6 +5,7 @@ const user = {
     "phone": "555-1234",
     "address": "123 Main Street",
     "level": 5,
-    "description": "I love reading books!"
+    "description": "I love reading books!",
+    "password": "password123"
 };
 export default user;

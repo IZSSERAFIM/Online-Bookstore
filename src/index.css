@@ -1,6 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
 .header {
   background-color: white !important;
   padding: 0;
+  font-family: "Nunito", sans-serif;
 }
 
 .navbar {
@@ -8,6 +11,7 @@
   margin-left: auto;
   margin-right: auto;
   padding: 0 50px;
+  font-family: "Nunito", sans-serif;
 }
 
 svg {
@@ -20,8 +24,10 @@ svg {
 
 .basic-layout {
   min-height: 100vh !important;
+  font-family: "Nunito", sans-serif;
 }
 
 .card-container {
   margin: 20px;
+  font-family: "Nunito", sans-serif;
 }

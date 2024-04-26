@@ -11,7 +11,7 @@ export default function CartItemTable({ carts }) {
     items.forEach((item) => {
       totalPrice += item.price * item.number;
     });
-    return totalPrice / 100; // 将总价转换为元
+    return totalPrice / 100; 
   };
   const [totalPrice, setTotalPrice] = useState(computeTotalPrice(carts));
   // 删除商品

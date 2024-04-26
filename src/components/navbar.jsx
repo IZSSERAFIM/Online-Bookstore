@@ -34,8 +34,9 @@ export default function NavBar() {
     },
     {
       key: "balance",
-      label: `余额：元`,
+      label: `余额`,
       icon: <AccountBookOutlined />,
+      disabled: true,
     },
     { key: "logout", label: "登出", icon: <LogoutOutlined />, danger: true },
   ];
