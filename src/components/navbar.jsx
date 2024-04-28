@@ -11,7 +11,7 @@ export default function NavBar() {
   const parts = location.pathname.split("/");
   const selectedKey = "/" + parts[parts.length - 1];
   const navItems = [
-    { label: "首页", value: "/" },
+    { label: "首页", value: "/home" },
     { label: "购物车", value: "/cart" },
     { label: "订单", value: "/order" },
     { label: "排行", value: "/rank" },
@@ -53,7 +53,7 @@ export default function NavBar() {
   return (
     <Row className="navbar" justify="start">
       <Col>
-        <Link to="/">Online Bookstore</Link>
+        <Link to="/home">Online Bookstore</Link>
       </Col>
       <Col flex="auto">
         <Menu
