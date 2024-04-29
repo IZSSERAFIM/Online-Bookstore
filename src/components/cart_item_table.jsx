@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Table, Image, InputNumber } from "antd";
 
-export default function CartItemTable({ carts }) {
+export default function CartItemTable({ carts, onMutate}) {
   const [selectedItems, setSelectedItems] = useState(carts);
   
 
