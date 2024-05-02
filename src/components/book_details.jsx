@@ -1,5 +1,5 @@
-import { Button, Col, Image, Row, Space } from "antd";
-import { Divider, Typography } from "antd";
+import { Button, Col, Image, Row, Space, Divider, Typography } from "antd";
+import { addCartItem } from "../service/cart";
 
 const { Title, Paragraph } = Typography;
 
@@ -51,7 +51,7 @@ export default function BookDetails({ book, onAddCartItem }) {
               <Button size="large" onClick={onAddCartItem}>
                 加入购物车
               </Button>
-              <Button type="primary" size="large">
+              <Button type="primary" size="large" onClick={() => addCartItem(book.id)}>
                 立即购买
               </Button>
             </Space>
