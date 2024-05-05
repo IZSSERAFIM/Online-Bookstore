@@ -1,3 +1,4 @@
+import { message } from "antd";
 export async function getCartItems() {
   return await fetch("http://localhost:8080/carts").then((res) => res.json());
 }
@@ -12,7 +13,7 @@ export async function addCartItem(bookId) {
     },
     body: JSON.stringify({ bookId }), // 将请求体设置为一个包含bookId的JSON字符串
   });
-  
+
   // 检查响应的状态码是否表示成功（200-299）
   if (!response.ok) {
     // 如果状态码表示请求失败，抛出一个错误
@@ -22,7 +23,7 @@ export async function addCartItem(bookId) {
   // 使用response.text()获取服务器返回的文本消息
   const data = await response.text();
   // 使用window.alert()在浏览器前台弹出服务器返回的消息
-  window.alert(data); // 弹出"订单确认"
+  message.success(data); // 弹出"订单确认"
 }
 
 export async function addCartItems(items, receiver, address, tel, createdAt) {
@@ -41,11 +42,11 @@ export async function addCartItems(items, receiver, address, tel, createdAt) {
     },
     body: JSON.stringify(payload),
   });
-  
+
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
 
   const data = await response.text();
-  window.alert(data);
+  message.success(data);
 }
