@@ -24,3 +24,28 @@ export async function addCartItem(bookId) {
   // 使用window.alert()在浏览器前台弹出服务器返回的消息
   window.alert(data); // 弹出"订单确认"
 }
+
+export async function addCartItems(items, receiver, address, tel, createdAt) {
+  const payload = {
+    receiver,
+    address,
+    tel,
+    createdAt,
+    items: JSON.stringify(items), // 将items数组转换为字符串
+  };
+
+  const response = await fetch("http://localhost:8080/orders", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  const data = await response.text();
+  window.alert(data);
+}

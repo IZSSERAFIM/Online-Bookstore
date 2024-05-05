@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { Button, Table, Image, InputNumber } from "antd";
+import { addCartItems } from "../service/cart";
+import user from "../test/user";
+import {formatTime} from "../utils/time";
 
 export default function CartItemTable({ carts, onMutate}) {
   const [selectedItems, setSelectedItems] = useState(carts);
@@ -76,11 +79,21 @@ export default function CartItemTable({ carts, onMutate}) {
     },
   ];
 
+  const items = selectedItems.map((item) => ({
+    bookId: item.id,
+    number: item.number,
+  }));
+
+  console.log(items,user.username,user.address,user.phone);
+
+  const time = new Date().getTime();
+  console.log(formatTime(time));
+
   return (
     <>
       <Table dataSource={selectedItems} columns={columns} rowKey="id" />
       <p>总价：{totalPrice}元</p>
-      <Button type="primary" disabled={selectedItems.length === 0}>
+      <Button type="primary" disabled={selectedItems.length === 0} onClick={() => addCartItems(items,user.username,user.address,user.phone,formatTime(time))}>
         立刻下单
       </Button>
     </>
