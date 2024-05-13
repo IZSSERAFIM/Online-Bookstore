@@ -1,6 +1,8 @@
 # Backend
 [Online-Bookstore-Backend](https://github.com/IZSSERAFIM/Online-Bookstore-Backend)
 
+[Online-Bookstore-DB](https://github.com/IZSSERAFIM/Online-Bookstore-DB)
+
 ---
 
 # Getting Started with Create React App
