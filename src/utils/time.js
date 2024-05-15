@@ -5,5 +5,13 @@ export function formatTime(time) {
     let day = date.getDate();
     let hours = date.getHours();
     let minutes = date.getMinutes().toString().padStart(2, '0');
-    return `${year}/${month}/${day} ${hours}:${minutes}`;
+    return `${year}-${month}-${day} ${hours}:${minutes}`;
+}
+
+export function formatTimeD(time) {
+    let date = new Date(time);
+    let year = date.getFullYear();
+    let month = date.getMonth() + 1;
+    let day = date.getDate();
+    return `${year}-${month}-${day}`;
 }

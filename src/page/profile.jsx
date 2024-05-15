@@ -1,53 +1,50 @@
-import React, { useState } from "react";
-import { Button, Card, Form, Input, Upload, Avatar } from "antd";
+import { useEffect, useState } from "react";
+import { Button, Card, Form, Input, Upload, Avatar, Spin } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-import  PrivateLayout  from "../components/layout";
-import user from "../test/user";
+import {PrivateLayout} from "../components/layout";
+import { getProfile } from "../service/user";
+import { useAuth } from "../components/AuthProvider";
 
-const { TextArea } = Input;
+export default function Profile() {
+  const auth = useAuth();
+  const [profile, setProfile] = useState();
 
-const Profile = () => {
-  const [userData, setUserData] = useState(user);
-
-  const [fileList, setFileList] = useState([]);
-
-  const handleFormSubmit = (values) => {
-    const updatedUserData = { ...userData, ...values };
-    setUserData(updatedUserData);
-    console.log(updatedUserData);
+  const getProfileData = async () => {
+    let profile = await getProfile({ name: auth.user, password: auth.token });
+    setProfile(profile);
+    console.log({ profile: profile });
   };
 
-  return (
+  useEffect(() => {
+    getProfileData();
+  }, []);
+
+  return profile ? (
     <PrivateLayout>
       <Card title="个人信息" style={{ maxWidth: 600, margin: "auto" }}>
         <Form
           layout="vertical"
-          onFinish={handleFormSubmit}
-          initialValues={userData}
+          onFinish={getProfileData}
+          initialValues={profile}
         >
           <Form.Item label="头像">
             <Upload
               accept="image/*"
               listType="picture-card"
-              fileList={fileList}
+              fileList={[]}
               beforeUpload={() => false}
-              onChange={({ fileList: newFileList }) => {
-                setFileList(newFileList);
-              }}
             >
-              {fileList.length === 0 && (
-                <Avatar
-                  size={100}
-                  icon={<UserOutlined />}
-                  src={userData.avatar}
-                  alt="avatar"
-                />
-              )}
+              <Avatar
+                size={100}
+                icon={<UserOutlined />}
+                src={profile.avatar}
+                alt="avatar"
+              />
             </Upload>
           </Form.Item>
           <Form.Item
             label="用户名"
-            name="username"
+            name="name"
             rules={[{ required: true, message: "请输入用户名" }]}
           >
             <Input />
@@ -74,14 +71,14 @@ const Profile = () => {
             <Input />
           </Form.Item>
           <Form.Item label="用户等级">
-            <Input value={userData.level} disabled />
+            <Input value={profile.level} disabled />
           </Form.Item>
           <Form.Item
             label="个性化自述"
             name="description"
             rules={[{ required: true, message: "请输入个性化自述" }]}
           >
-            <TextArea rows={4} />
+            <Input />
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
@@ -91,7 +88,7 @@ const Profile = () => {
         </Form>
       </Card>
     </PrivateLayout>
+  ) : (
+    <Spin fullscreen />
   );
-};
-
-export default Profile;
+}

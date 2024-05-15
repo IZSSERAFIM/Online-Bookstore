@@ -1,13 +1,31 @@
+import { useEffect, useState } from "react";
 import { Layout, Space } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import NavBar from "./navbar";
 import { Link } from "react-router-dom";
+import { getProfile } from "../service/user";
+import { useAuth } from "../components/AuthProvider";
 
-export default function PrivateLayout({ children }) {
+export function PrivateLayout({ children }) {
+  const auth = useAuth();
+  const [profile, setProfile] = useState();
+
+  const getProfileData = async () => {
+    let profile = await getProfile({ name: auth.user, password: auth.token });
+    setProfile(profile);
+    console.log({ profile: profile });
+  };
+
+  useEffect(() => {
+    getProfileData();
+  }, []);
+
+  const user = profile ? profile : { name: auth.user };
+
   return (
     <Layout className="basic-layout">
       <Header className="header">
-        <NavBar user={null} />
+        <NavBar user={user} />
       </Header>
       <Content>{children}</Content>
       <Footer className="footer">

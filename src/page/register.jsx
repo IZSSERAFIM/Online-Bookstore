@@ -3,7 +3,7 @@ import { Button } from "antd";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
-import BasicLayout from "../components/layout";
+import {BasicLayout} from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
 

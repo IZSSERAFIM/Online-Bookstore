@@ -1,25 +1,20 @@
 import { React, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
-import { Link, useNavigate } from "react-router-dom";
-import BasicLayout from "../components/layout";
+import { Link } from "react-router-dom";
+import {BasicLayout} from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
-import login from "../service/login";
+import { useAuth } from "../components/AuthProvider";
 
 const LoginPage = () => {
-  const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const auth = useAuth();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit = async (values) => {
-    const { username, password } = values;
-    const success = await login(username, password); // 调用登录函数
-
-    if (success) {
-      navigate("/home"); // 假设登录成功后跳转到/home，根据实际情况调整
-    } else {
-      setErrorMessage("用户名或密码错误！");
-    }
+  const onSubmit = async () => {
+    let res = await auth.loginAction(username, password);
+    console.log(res);
   };
 
   return (
@@ -29,7 +24,7 @@ const LoginPage = () => {
         logo={logo}
         title="Book Store"
         subTitle="电子书城"
-        onFinish={handleSubmit}
+        onFinish={onSubmit}
         style={{ height: "80vh" }}
       >
         <div style={{ height: "1em" }}></div>
@@ -38,6 +33,8 @@ const LoginPage = () => {
           fieldProps={{
             size: "large",
             prefix: <UserOutlined className={"prefixIcon"} />,
+            value: username,
+            onChange: e => setUsername(e.target.value)
           }}
           placeholder={"请输入用户名"}
           rules={[
@@ -52,6 +49,8 @@ const LoginPage = () => {
           fieldProps={{
             size: "large",
             prefix: <LockOutlined className={"prefixIcon"} />,
+            value: password,
+            onChange: e => setPassword(e.target.value)
           }}
           placeholder={"密码"}
           rules={[
@@ -64,7 +63,6 @@ const LoginPage = () => {
         <div style={{ marginBlockEnd: 24 }}>
           <Link to="/register">新账号？前往注册</Link>
         </div>
-        {errorMessage && <div style={{ color: "red" }}>{errorMessage}</div>}
       </LoginFormPage>
     </BasicLayout>
   );

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card } from "antd";
-import { PrivateLayout, BasicLayout } from "../components/layout";
+import { PrivateLayout } from "../components/layout";
 import OrderTable from "../components/order_table";
 import { getOrders } from "../service/order";
 
@@ -16,9 +16,9 @@ export default function OrderPage() {
         initOrders();
     }, []);
 
-    return <BasicLayout>
+    return <PrivateLayout>
         <Card className="card-container">
             <OrderTable orders={orders} />
         </Card>
-    </BasicLayout>
+    </PrivateLayout>
 }

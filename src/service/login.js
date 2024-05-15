@@ -1,19 +1,12 @@
-import { message } from "antd";
-const login = async (username, password) => {
-  const response = await fetch("http://localhost:8080/login", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ username, password }),
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  const data = await response.json();
-  message.success("登录成功");
-  return data.success;
+import { BASEURL, post } from "./common";
+export const login = async (username, password) => {
+  const url = `${BASEURL}/login?username=${username}&password=${password}`;
+    let result;
+    try {
+        result = await post(url, { name: username, password: password });
+    } catch (e) {
+        console.log(e);
+        result = false;
+    }
+    return result;
 };
-export default login;

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Card, Space, Input } from "antd";
-import PrivateLayout from "../components/layout";
+import {PrivateLayout} from "../components/layout";
 import BookList from "../components/book_list";
 import Slideshow from "../components/slide_show";
-import { getBooks } from "../service/book";
+import { getAllBookData } from "../service/book";
 const { Search } = Input;
 
 export default function HomePage() {
@@ -11,7 +11,7 @@ export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true); // 添加一个isLoading状态
   const initBooks = async () => {
     setIsLoading(true); // 开始加载数据
-    let books = await getBooks();
+    let books = await getAllBookData();
     setBooks(books);
     setIsLoading(false); // 数据加载完成
   };

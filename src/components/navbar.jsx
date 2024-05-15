@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Col, Menu, Row, Dropdown, Button } from "antd";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
@@ -6,7 +7,7 @@ import {
   AccountBookOutlined,
   FormOutlined,
 } from "@ant-design/icons";
-export default function NavBar() {
+export default function NavBar({ user }) {
   const location = useLocation();
   const parts = location.pathname.split("/");
   const selectedKey = "/" + parts[parts.length - 1];
@@ -18,13 +19,13 @@ export default function NavBar() {
   ];
   const navMenuItems = navItems.map((item) => ({
     key: item.value,
-    label: <Link to={item.value}>{item.label}</Link>,
+    label: user? <Link to={item.value}>{item.label}</Link>: null,
   }));
 
   const dropMenuItems = [
     {
       key: "profile",
-      label: "主页",
+      label: user?.name,
       icon: <UserOutlined />,
     },
     {
@@ -53,7 +54,7 @@ export default function NavBar() {
   return (
     <Row className="navbar" justify="start">
       <Col>
-        <Link to="/home">Online Bookstore</Link>
+        {user? <Link to="/home">Online Bookstore</Link>: <Link>Online Bookstore</Link>}
       </Col>
       <Col flex="auto">
         <Menu

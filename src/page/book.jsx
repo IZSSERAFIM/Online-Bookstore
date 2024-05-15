@@ -1,18 +1,25 @@
 import { useParams } from "react-router-dom";
 import BookDetails from "../components/book_details";
-import  PrivateLayout  from "../components/layout";
-import books from "../test/books";
+import  {PrivateLayout}  from "../components/layout";
+import { getBookById } from "../service/book";
 import { useEffect, useState } from "react";
 import { Card, Space, Divider } from "antd";
+import {useAuth} from "../components/AuthProvider";
+
 
 export default function BookPage() {
   const { id } = useParams(); // 使用 useParams 获取 URL 中的参数 id
+  const auth = useAuth();
   const [book, setBook] = useState(null);
+
+  const getBookData = async () =>{
+    let bookData = await getBookById(id);
+    setBook(bookData)
+}
 
   useEffect(() => {
     // 根据 id 查找对应的书籍
-    const foundBook = books.find((book) => book.id === parseInt(id));
-    setBook(foundBook);
+    getBookData();
   }, [id]); // 当 id 发生变化时，重新查找书籍
 
   return (

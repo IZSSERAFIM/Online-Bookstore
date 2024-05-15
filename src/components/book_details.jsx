@@ -1,5 +1,10 @@
+import React from "react";
+import { useParams } from "react-router-dom";
 import { Button, Col, Image, Row, Space, Divider, Typography } from "antd";
-import { addCartItem } from "../service/cart";
+// import { addCartItem } from "../service/cart";
+import { addCartBook } from "../service/cart";
+import { useAuth } from "../components/AuthProvider";
+import { formatTimeD } from "../utils/time";
 
 const { Title, Paragraph } = Typography;
 
@@ -18,10 +23,15 @@ export default function BookDetails({ book, onAddCartItem }) {
   };
   const moneyStyle = { color: "#dd3735", fontSize: "30px" };
 
+  let { id } = useParams();
+  const auth = useAuth();
+  const date = formatTimeD(new Date());
+  const cartBook = { date: date, name: auth.user, bookId: id };
+
   return (
     <Row>
       <Col span={9}>
-        <Image src={book.cover} style={imgStyle} />{" "}
+        <Image src={book.cover} style={imgStyle} alt={book.title} />
       </Col>
       <Col span={15}>
         <Typography>
@@ -48,10 +58,14 @@ export default function BookDetails({ book, onAddCartItem }) {
               </div>
             </div>
             <Space>
-              <Button size="large" onClick={onAddCartItem}>
+              <Button size="large" onClick={() => addCartBook(cartBook)}>
                 加入购物车
               </Button>
-              <Button type="primary" size="large" onClick={() => addCartItem(book.id)}>
+              <Button
+                type="primary"
+                size="large"
+                // onClick={(cartBook)=>addCartBook(cartBook)}
+              >
                 立即购买
               </Button>
             </Space>
