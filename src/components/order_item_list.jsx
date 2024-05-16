@@ -1,4 +1,5 @@
-import { List, Avatar } from "antd"
+import { List, Avatar } from "antd";
+import { Link } from "react-router-dom";
 
 export default function OrderItemList({ orderItems }) {
     return <List
@@ -6,9 +7,13 @@ export default function OrderItemList({ orderItems }) {
         renderItem={(item) => (
             <List.Item>
                 <List.Item.Meta
-                    avatar={<Avatar shape="square" size={80} src={item.book.cover} />}
+                    avatar={
+                        <Link to={`/book/${item.book.id}`}>
+                            <Avatar shape="square" size={80} src={item.book.cover} />
+                        </Link>
+                    }
                     title={item.book.title}
-                    description={`数量：${item.number}`}
+                    description={`数量：${item.bookNum}`}
                 />
             </List.Item>
         )}

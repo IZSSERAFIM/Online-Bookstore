@@ -19,7 +19,7 @@ export default function NavBar({ user }) {
   ];
   const navMenuItems = navItems.map((item) => ({
     key: item.value,
-    label: user? <Link to={item.value}>{item.label}</Link>: null,
+    label: user ? <Link to={item.value}>{item.label}</Link> : null,
   }));
 
   const dropMenuItems = [
@@ -54,7 +54,11 @@ export default function NavBar({ user }) {
   return (
     <Row className="navbar" justify="start">
       <Col>
-        {user? <Link to="/home">Online Bookstore</Link>: <Link>Online Bookstore</Link>}
+        {user ? (
+          <Link to="/home">Online Bookstore</Link>
+        ) : (
+          <Link>Online Bookstore</Link>
+        )}
       </Col>
       <Col flex="auto">
         <Menu
@@ -66,19 +70,28 @@ export default function NavBar({ user }) {
       </Col>
       {
         <Col>
-          <Dropdown
-            overlay={
-              <Menu onClick={(e) => handleMenuClick(e.key)}>
-                {dropMenuItems.map((item) => (
-                  <Menu.Item key={item.key} danger={item.danger}>
-                    {item.label}
-                  </Menu.Item>
-                ))}
-              </Menu>
-            }
-          >
-            <Button shape="circle" icon={<UserOutlined />} />
-          </Dropdown>
+          {user ? (
+            <Dropdown
+              overlay={
+                <Menu onClick={(e) => handleMenuClick(e.key)}>
+                  {dropMenuItems.map((item) => (
+                    <Menu.Item key={item.key} danger={item.danger}>
+                      {item.label}
+                    </Menu.Item>
+                  ))}
+                </Menu>
+              }
+            >
+              <Button shape="circle" icon={<UserOutlined />} />
+            </Dropdown>
+          ) : (
+            <Link
+              to="https://github.com/IZSSERAFIM/Online-Bookstore"
+              target="_blank"
+            >
+              关于
+            </Link>
+          )}
         </Col>
       }
     </Row>

@@ -1,15 +1,32 @@
 import { Table } from "antd";
 import OrderItemList from "./order_item_list";
-import { formatTime } from "../utils/time";
+import { formatTimeD } from "../utils/time";
 
 export default function OrderTable({ orders }) {
     const columns = [
-        { title: '收货人', dataIndex: 'receiver', key: 'receiver', },
-        { title: '联系方式', dataIndex: 'tel', key: 'tel', },
-        { title: '收货地址', dataIndex: 'address', key: 'address', },
+        { 
+            title: '收货人', 
+            dataIndex: 'user', 
+            key: 'user.name', 
+            render: user => user.name,
+        },
+        { 
+            title: '联系方式', 
+            dataIndex: 'user', 
+            key: 'user.phone', 
+            render: user => user.phone,
+        },
+        { 
+            title: '收货地址', 
+            dataIndex: 'user', 
+            key: 'user.address', 
+            render: user => user.address,
+        },
         {
-            title: '下单时间', dataIndex: 'createdAt', key: 'createdAt',
-            render: (time) => formatTime(time)
+            title: '下单时间', 
+            dataIndex: 'date', 
+            key: 'date',
+            render: (time) => formatTimeD(time)
         },
     ];
 
@@ -17,7 +34,7 @@ export default function OrderTable({ orders }) {
         columns={columns}
         expandable={{
             expandedRowRender: (order) => (
-                <OrderItemList orderItems={order.items} />
+                <OrderItemList orderItems={order.orderItemList} />
             ),
         }}
         dataSource={orders.map(order => ({

@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { Button, Col, Image, Row, Space, Divider, Typography } from "antd";
-// import { addCartItem } from "../service/cart";
+import { addOrder } from "../service/order";
 import { addCartBook } from "../service/cart";
 import { useAuth } from "../components/AuthProvider";
 import { formatTimeD } from "../utils/time";
@@ -27,6 +27,12 @@ export default function BookDetails({ book, onAddCartItem }) {
   const auth = useAuth();
   const date = formatTimeD(new Date());
   const cartBook = { date: date, name: auth.user, bookId: id };
+  const orderBook = {
+    date: date,
+    name: auth.user,
+    bookIdList: [id],
+    bookNumList: [1],
+  };
 
   return (
     <Row>
@@ -64,7 +70,7 @@ export default function BookDetails({ book, onAddCartItem }) {
               <Button
                 type="primary"
                 size="large"
-                // onClick={(cartBook)=>addCartBook(cartBook)}
+                onClick={() => addOrder(orderBook)}
               >
                 立即购买
               </Button>

@@ -13,7 +13,6 @@ export default function CartPage() {
     const getCartData = async () =>{
         let cartData = await getAllCartBooks({name: auth.user, password: auth.token})
         setCartData(cartData)
-        // console.log({cart: cartData})
         console.log({cartData})
     }
 
