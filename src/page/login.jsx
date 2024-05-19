@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import {BasicLayout} from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../service/AuthProvider";
 
 const LoginPage = () => {
   const auth = useAuth();

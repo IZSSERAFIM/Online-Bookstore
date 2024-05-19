@@ -4,7 +4,7 @@ import { Content, Footer, Header } from "antd/es/layout/layout";
 import NavBar from "./navbar";
 import { Link } from "react-router-dom";
 import { getProfile } from "../service/user";
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../service/AuthProvider";
 
 export function PrivateLayout({ children }) {
   const auth = useAuth();
@@ -30,14 +30,12 @@ export function PrivateLayout({ children }) {
       <Content>{children}</Content>
       <Footer className="footer">
         <Space direction="vertical">
-          <div>
-            Online Bookstore ©{new Date().getFullYear()} Created by{" "}
-            {
-              <Link to="https://github.com/IZSSERAFIM" target="_blank">
-                LRB
-              </Link>
-            }
-          </div>
+          <Link
+            to="https://github.com/IZSSERAFIM/Online-Bookstore"
+            target="_blank"
+          >
+            <div>Online Bookstore ©{new Date().getFullYear()}</div>
+          </Link>
         </Space>
       </Footer>
     </Layout>
@@ -53,14 +51,12 @@ export function BasicLayout({ children }) {
       <Content>{children}</Content>
       <Footer className="footer">
         <Space direction="vertical">
-          <div>
-            Online Bookstore ©{new Date().getFullYear()} Created by{" "}
-            {
-              <Link to="https://github.com/IZSSERAFIM" target="_blank">
-                LRB
-              </Link>
-            }
-          </div>
+          <Link
+            to="https://github.com/IZSSERAFIM/Online-Bookstore"
+            target="_blank"
+          >
+            <div>Online Bookstore ©{new Date().getFullYear()}</div>
+          </Link>
         </Space>
       </Footer>
     </Layout>

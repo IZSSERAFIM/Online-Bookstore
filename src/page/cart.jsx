@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "antd";
 import CartItemTable from "../components/cart_item_table";
 import {PrivateLayout} from "../components/layout";
-import {useAuth} from "../components/AuthProvider";
+import {useAuth} from "../service/AuthProvider";
 import { getAllCartBooks } from "../service/cart";
 
 export default function CartPage() {

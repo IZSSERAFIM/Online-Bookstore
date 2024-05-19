@@ -3,7 +3,7 @@ import { Card } from "antd";
 import { PrivateLayout } from "../components/layout";
 import OrderTable from "../components/order_table";
 import {getAllOrders} from "../service/order";
-import {useAuth} from "../components/AuthProvider";
+import {useAuth} from "../service/AuthProvider";
 
 export default function OrderPage() {
     const [ordersData, setOrdersData] = useState([])

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Table, Button, InputNumber } from "antd";
 import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
 import BookCard from "./book_card";
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../service/AuthProvider";
 import { addOrder } from "../service/order";
 import { formatTimeD } from "../utils/time";
 

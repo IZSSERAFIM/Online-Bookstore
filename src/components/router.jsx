@@ -7,7 +7,7 @@ import CartPage from "../page/cart";
 import OrderPage from "../page/order";
 import RankPage from "../page/rank";
 import Profile from "../page/profile";
-import AuthProvider from "./AuthProvider";
+import AuthProvider from "../service/AuthProvider";
 
 export default function AppRouter() {
   return (

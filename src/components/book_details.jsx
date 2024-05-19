@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Button, Col, Image, Row, Space, Divider, Typography } from "antd";
 import { addOrder } from "../service/order";
 import { addCartBook } from "../service/cart";
-import { useAuth } from "../components/AuthProvider";
+import { useAuth } from "../service/AuthProvider";
 import { formatTimeD } from "../utils/time";
 
 const { Title, Paragraph } = Typography;
