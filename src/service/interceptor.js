@@ -2,12 +2,12 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 // 创建axios实例
-const intercepter = axios.create({
+const interceptor = axios.create({
   baseURL: "http://localhost:8080", // 你的API地址
 });
 
 // 添加响应拦截器
-intercepter.interceptors.response.use(
+interceptor.interceptors.response.use(
   (response) => {
     // 如果响应返回的状态码是200，那么就返回数据
     return response.data;
@@ -23,4 +23,4 @@ intercepter.interceptors.response.use(
   }
 );
 
-export default intercepter;
+export default interceptor;

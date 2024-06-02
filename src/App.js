@@ -1,7 +1,7 @@
 import React from "react";
 import { ConfigProvider, theme } from "antd";
 import AppRouter from "./components/router";
-import intercepter from './service/intercepter'; // 导入axios实例
+import interceptor from './service/interceptor'; // 导入axios实例
 
 const defaultData = {
   borderRadius: 6,
@@ -16,7 +16,7 @@ function App() {
 
   // 使用api实例发送请求
   React.useEffect(() => {
-    intercepter.get('/some-endpoint')
+    interceptor.get('/**')
       .then(response => {
         console.log(response);
       })
