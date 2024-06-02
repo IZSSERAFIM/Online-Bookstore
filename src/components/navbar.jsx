@@ -7,6 +7,7 @@ import {
   AccountBookOutlined,
   FormOutlined,
 } from "@ant-design/icons";
+import { logout } from "../service/logout";
 export default function NavBar({ user }) {
   const location = useLocation();
   const parts = location.pathname.split("/");
@@ -39,7 +40,12 @@ export default function NavBar({ user }) {
       icon: <AccountBookOutlined />,
       disabled: true,
     },
-    { key: "logout", label: "登出", icon: <LogoutOutlined />, danger: true },
+    {
+      key: "logout",
+      label: "登出",
+      icon: <LogoutOutlined />,
+      danger: true,
+    },
   ];
 
   const navigate = useNavigate();
@@ -48,6 +54,7 @@ export default function NavBar({ user }) {
       navigate("/profile");
     } else if (key === "logout") {
       navigate("/login");
+      logout();
     }
   };
 
