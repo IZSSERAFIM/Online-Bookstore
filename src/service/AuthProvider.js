@@ -18,7 +18,8 @@ const AuthProvider = ({ children }) => {
         localStorage.setItem("user", username);
         localStorage.setItem("site", password);
         message.success("登录成功");
-        navigate("/home");
+        // 如果用户名是admin，那么就导航到/admin页面，否则导航到/home页面
+        navigate(username === 'admin' ? "/admin" : "/home");
         return;
       }
       throw new Error(res.message);

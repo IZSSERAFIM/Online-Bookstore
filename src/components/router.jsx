@@ -7,6 +7,7 @@ import CartPage from "../page/cart";
 import OrderPage from "../page/order";
 import RankPage from "../page/rank";
 import Profile from "../page/profile";
+import AdminPage from "../page/admin";
 import AuthProvider from "../service/AuthProvider";
 
 export default function AppRouter() {
@@ -23,6 +24,7 @@ export default function AppRouter() {
           <Route path="/rank" element={<RankPage />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/admin" element={<AdminPage />} />
           <Route path="*" element={<HomePage />} />
         </Routes>
       </AuthProvider>

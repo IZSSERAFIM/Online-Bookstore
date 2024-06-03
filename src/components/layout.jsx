@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Layout, Space } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import NavBar from "./navbar";
+import AdminNavBar from "./admin_navbar";
 import { Link } from "react-router-dom";
 import { getProfile } from "../service/user";
 import { useAuth } from "../service/AuthProvider";
@@ -48,6 +49,25 @@ export function BasicLayout({ children }) {
       <Header className="header">
         <NavBar user={null} />
       </Header>
+      <Content>{children}</Content>
+      <Footer className="footer">
+        <Space direction="vertical">
+          <Link
+            to="https://github.com/IZSSERAFIM/Online-Bookstore"
+            target="_blank"
+          >
+            <div>Online Bookstore ©{new Date().getFullYear()}</div>
+          </Link>
+        </Space>
+      </Footer>
+    </Layout>
+  );
+}
+
+export function AdminLayout({ children, header }) {
+  return (
+    <Layout className="basic-layout">
+      <Header className="header">{header}</Header>
       <Content>{children}</Content>
       <Footer className="footer">
         <Space direction="vertical">
