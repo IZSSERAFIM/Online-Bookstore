@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
       } else if (result === "WRONG_CREDENTIALS") {
         throw new Error("用户名或密码错误");
       } else if (result === "BANNED") {
-        throw new Error("用户被封禁");
+        throw new Error("您的账号已经被禁⽤");
       }
     } catch (err) {
       console.error(err);

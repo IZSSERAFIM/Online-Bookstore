@@ -38,6 +38,7 @@ export default function AdminUser() {
 
   const handleBan = (userId) => {
     // Implement ban functionality here
+    
   };
 
   const handleUnban = (userId) => {
