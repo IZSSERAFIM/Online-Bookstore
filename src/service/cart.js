@@ -6,6 +6,7 @@ export async function getAllCartBooks(auth) {
   let cartBooks;
   try {
     cartBooks = getPrivateJson(url, auth);
+    console.log(auth);
   } catch (e) {
     console.log(e);
     cartBooks = [];

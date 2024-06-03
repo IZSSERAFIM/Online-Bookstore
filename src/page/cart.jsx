@@ -23,7 +23,7 @@ export default function CartPage() {
     return (
         <PrivateLayout>
             <Card className="card-container">
-                <CartItemTable carts={cartData}/>
+                <CartItemTable carts={cartData} onMutate={getCartData}/>
             </Card>
         </PrivateLayout>
     )
