@@ -9,23 +9,28 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(localStorage.getItem("user") || null);
   const [token, setToken] = useState(localStorage.getItem("site") || "");
   const navigate = useNavigate();
+
   const loginAction = async (username, password) => {
     try {
       const res = await login(username, password);
-      if (res === true) {
+      const result = res.result;
+
+      if (result === "SUCCESS") {
         setUser(username);
         setToken(password);
         localStorage.setItem("user", username);
         localStorage.setItem("site", password);
         message.success("登录成功");
-        // 如果用户名是admin，那么就导航到/admin页面，否则导航到/home页面
         navigate(username === 'admin' ? "/admin" : "/home");
         return;
+      } else if (result === "WRONG_CREDENTIALS") {
+        throw new Error("用户名或密码错误");
+      } else if (result === "BANNED") {
+        throw new Error("用户被封禁");
       }
-      throw new Error(res.message);
     } catch (err) {
       console.error(err);
-      message.error("登录失败");
+      message.error(err.message);
     }
   };
 
@@ -42,6 +47,7 @@ const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
 
 export default AuthProvider;
 
