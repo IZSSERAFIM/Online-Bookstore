@@ -30,3 +30,19 @@ export async function getHelloText(){
     let text = await get(url);
     return text;
 }
+
+export async function searchBooks(keyword, pageIndex, pageSize) {
+    const url = `${BASEURL}/books?keyword=${keyword}&pageIndex=${pageIndex}&pageSize=${pageSize}`;
+    console.log(url);
+    let books;
+    try {
+        books = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        books = {
+            total: 0,
+            items: []
+        };
+    }
+    return books;
+}
