@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Button } from "antd";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined, MailOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
-import {BasicLayout} from "../components/layout";
+import { BasicLayout } from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
+import { useAuth } from "../service/AuthProvider";
 
 const RegisterPage = () => {
+  const auth = useAuth();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleUsernameChange = (e) => {
@@ -24,18 +27,28 @@ const RegisterPage = () => {
     setConfirmPassword(e.target.value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your registration logic here
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const onSubmit = async () => {
+    let res = await auth.registerAction(username, password, email);
+    console.log(res);
   };
 
   return (
     <BasicLayout>
       <LoginFormPage
+        submitter={{
+          searchConfig: {
+            submitText: "注册",
+          },
+        }}
         backgroundImageUrl={backgroundImageUrl}
         logo={logo}
         title="Book Store"
         subTitle="电子书城"
+        onFinish={onSubmit}
         style={{ height: "80vh" }}
       >
         <div style={{ height: "1em" }}></div>
@@ -52,6 +65,26 @@ const RegisterPage = () => {
             {
               required: true,
               message: "请输入用户名!",
+            },
+          ]}
+        />
+        <ProFormText
+          name="email"
+          fieldProps={{
+            size: "large",
+            prefix: <MailOutlined className={"prefixIcon"} />,
+          }}
+          placeholder={"请输入邮箱"}
+          value={email}
+          onChange={handleEmailChange}
+          rules={[
+            {
+              required: true,
+              message: "请输入邮箱!",
+            },
+            {
+              pattern: /\S+@\S+\.\S+/,
+              message: "请输入有效的邮箱地址!",
             },
           ]}
         />
@@ -95,9 +128,6 @@ const RegisterPage = () => {
             }),
           ]}
         />
-        <Button type="primary" onClick={handleSubmit}>
-          注册
-        </Button>
         <p>
           已有账号？<Link to="/login">登录</Link>
         </p>

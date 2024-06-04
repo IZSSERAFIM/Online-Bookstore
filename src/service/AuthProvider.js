@@ -2,6 +2,7 @@ import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { login } from "./login";
+import { register } from "./register";
 
 const AuthContext = createContext();
 
@@ -41,8 +42,23 @@ const AuthProvider = ({ children }) => {
     navigate("/login");
   };
 
+  const registerAction = async (username, password, email) => {
+    try {
+      const res = await register(username, password, email);
+      if (res) {
+        message.success("注册成功");
+        navigate("/login");
+      } else {
+        throw new Error("注册失败");
+      }
+    } catch (err) {
+      console.error(err);
+      message.error(err.message);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ token, user, loginAction, logout }}>
+    <AuthContext.Provider value={{ token, user, loginAction, logout, registerAction }}>
       {children}
     </AuthContext.Provider>
   );

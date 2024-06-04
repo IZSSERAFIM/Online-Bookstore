@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { LoginFormPage, ProFormText } from "@ant-design/pro-components";
 import { Link } from "react-router-dom";
-import {BasicLayout} from "../components/layout";
+import { BasicLayout } from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
 import { useAuth } from "../service/AuthProvider";
@@ -34,7 +34,7 @@ const LoginPage = () => {
             size: "large",
             prefix: <UserOutlined className={"prefixIcon"} />,
             value: username,
-            onChange: e => setUsername(e.target.value)
+            onChange: (e) => setUsername(e.target.value),
           }}
           placeholder={"请输入用户名"}
           rules={[
@@ -50,7 +50,7 @@ const LoginPage = () => {
             size: "large",
             prefix: <LockOutlined className={"prefixIcon"} />,
             value: password,
-            onChange: e => setPassword(e.target.value)
+            onChange: (e) => setPassword(e.target.value),
           }}
           placeholder={"密码"}
           rules={[
@@ -61,7 +61,9 @@ const LoginPage = () => {
           ]}
         />
         <div style={{ marginBlockEnd: 24 }}>
-          <Link to="/register">新账号？前往注册</Link>
+          <p>
+            新账号？<Link to="/register">注册</Link>
+          </p>
         </div>
       </LoginFormPage>
     </BasicLayout>
