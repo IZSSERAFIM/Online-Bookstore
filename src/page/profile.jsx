@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button, Card, Form, Input, Upload, Avatar, Spin } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import { PrivateLayout } from "../components/layout";
-import { getProfile } from "../service/user";
+import { getProfile, updateProfile } from "../service/user";
 import { useAuth } from "../service/AuthProvider";
 
 export default function Profile() {
@@ -15,6 +15,11 @@ export default function Profile() {
     console.log({ profile: profile });
   };
 
+  const handleFinish = async (values) => {
+    await updateProfile(auth, values);
+    getProfileData();
+  };
+
   useEffect(() => {
     getProfileData();
   }, []);
@@ -24,7 +29,7 @@ export default function Profile() {
       <Card title="个人信息" style={{ maxWidth: 600, margin: "auto" }}>
         <Form
           layout="vertical"
-          onFinish={getProfileData}
+          onFinish={handleFinish}
           initialValues={profile}
         >
           <Form.Item label="头像">

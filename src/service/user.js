@@ -13,6 +13,23 @@ export async function getProfile(auth) {
   return res;
 }
 
+export async function updateProfile(auth, data) {
+  let url = `${BASEURL}/update_user`;
+  let res;
+  try {
+    console.log({ ...auth, ...data });
+    res = post(url, { ...auth, ...data });
+    message.success("更新成功");
+  } catch (e) {
+    console.log(e);
+    res = {
+      ok: false,
+      message: "Update Profile Failed.",
+    };
+  }
+  return res;
+}
+
 export async function gatAllUsers() {
   let url = `${BASEURL}/admin_user`;
   let res;
