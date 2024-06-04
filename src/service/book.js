@@ -46,3 +46,15 @@ export async function searchBooks(keyword, pageIndex, pageSize) {
     }
     return books;
 }
+
+export async function getBestSellingBooks() {
+    const url = `${BASEURL}/books/rank`;
+    let books;
+    try {
+        books = await getJson(url);
+    } catch (e) {
+        console.log(e);
+        books = null;
+    }
+    return books;
+}
