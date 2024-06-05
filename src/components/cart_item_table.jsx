@@ -5,6 +5,7 @@ import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
 import BookCard from "./book_card";
 import { useAuth } from "../service/AuthProvider";
 import { addOrder } from "../service/order";
+import { deleteCart } from "../service/cart";
 import { formatTimeD } from "../utils/time";
 
 export default function CartItemTable({ carts }) {
@@ -60,11 +61,18 @@ export default function CartItemTable({ carts }) {
             <Button
               type="primary"
               icon={<ShoppingOutlined />}
-              onClick={() => addOrder(orderBook)}
+              onClick={() => {
+                addOrder(orderBook);
+                deleteCart(carts.id); // 使用carts.id
+              }}
             />
             <br />
             <br />
-            <Button type="primary" icon={<DeleteOutlined />} />
+            <Button
+              type="primary"
+              icon={<DeleteOutlined />}
+              onClick={() => deleteCart(carts.id)} // 使用carts.id
+            />
           </>
         );
       },
