@@ -5,6 +5,7 @@ import {PrivateLayout} from "../components/layout";
 import BookList from "../components/book_list";
 import Slideshow from "../components/slide_show";
 import { searchBooks } from "../service/book";
+import Notice from "../components/notice";
 
 const { Search } = Input;
 export default function HomePage() {
@@ -49,6 +50,7 @@ export default function HomePage() {
   return <PrivateLayout>
     <Card className="card-container">
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
+        <Notice />
         <Search placeholder="输入关键字" onSearch={handleSearch} enterButton size="large" />
         <Slideshow />
         <BookList books={books} pageSize={pageSize} total={totalPage * pageSize} current={pageIndex + 1} onPageChange={handlePageChange} />

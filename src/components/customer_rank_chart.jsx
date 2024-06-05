@@ -1,21 +1,16 @@
 import { Column } from "@ant-design/plots";
-import { useNavigate } from "react-router-dom"; // 引入useNavigate
-import BookCard from "./book_card"; // 引入BookCard组件
-import { useLocation } from "react-router-dom"; // 引入useLocation
 
-export default function BookRankChart({ books }) {
-  const navigate = useNavigate(); // 获取navigate函数
-  const location = useLocation(); // 获取当前的路由路径
+export default function CustomerRankChart({ customers }) {
 
-  console.log(books);
-  const data = books.map((book) => ({
-    sales: book.sales,
-    title: book.title,
+  console.log(customers);
+  const data = customers.map((customer) => ({
+    level: customer.level,
+    name: customer.name,
   }));
   const config = {
     data,
-    xField: "title",
-    yField: "sales",
+    xField: "name",
+    yField: "level",
     label: {
       position: "inside",
       style: {
@@ -55,10 +50,6 @@ export default function BookRankChart({ books }) {
           width: "100%",
         }}
       >
-        {location.pathname === "/rank" &&
-          books
-            .slice(0, 5)
-            .map((book) => <BookCard style={{ flex: 1 }} book={book} />)}
       </div>
     </div>
   );

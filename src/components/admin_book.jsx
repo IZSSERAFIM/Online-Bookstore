@@ -1,7 +1,7 @@
 export default function AdminBook() {
   return (
     <div>
-      <h1>AdminBook</h1>
+      <h1 style={{ textAlign: "center" }}>AdminBook</h1>
     </div>
   );
 }

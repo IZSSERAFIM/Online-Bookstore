@@ -70,7 +70,7 @@ export default function AdminUser() {
 
   return (
     <div>
-      <h1>AdminUser</h1>
+      <h1 style={{ textAlign: "center" }}>AdminUser</h1>
       <Table columns={columns} dataSource={users} rowKey="id" />
     </div>
   );

@@ -1,7 +1,7 @@
 export default function AdminOrder() {
   return (
     <div>
-      <h1>AdminOrder</h1>
+      <h1 style={{ textAlign: "center" }}>AdminOrder</h1>
     </div>
   );
 }
