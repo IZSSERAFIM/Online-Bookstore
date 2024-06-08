@@ -61,9 +61,13 @@ export default function CartItemTable({ carts }) {
             <Button
               type="primary"
               icon={<ShoppingOutlined />}
-              onClick={() => {
-                addOrder(orderBook);
-                deleteCart(carts.id); // 使用carts.id
+              onClick={async () => {
+                // 将函数改为异步
+                const result = await addOrder(orderBook); // 等待addOrder的结果
+                if (result === true) {
+                  // 如果addOrder成功
+                  deleteCart(carts.id); // 然后删除购物车项
+                }
               }}
             />
             <br />
