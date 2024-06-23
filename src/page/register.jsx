@@ -7,6 +7,7 @@ import { BasicLayout } from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
 import { useAuth } from "../service/AuthProvider";
+import SHA256 from "crypto-js/sha256";
 
 const RegisterPage = () => {
   const auth = useAuth();
@@ -32,7 +33,8 @@ const RegisterPage = () => {
   };
 
   const onSubmit = async () => {
-    let res = await auth.registerAction(username, password, email);
+    const hashedPassword = SHA256(password).toString();
+    let res = await auth.registerAction(username, hashedPassword, email);
     console.log(res);
   };
 

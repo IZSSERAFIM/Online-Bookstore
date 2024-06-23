@@ -6,6 +6,7 @@ import { BasicLayout } from "../components/layout";
 import backgroundImageUrl from "../imgs/background.jpg";
 import logo from "../imgs/logo.png";
 import { useAuth } from "../service/AuthProvider";
+import SHA256 from "crypto-js/sha256";
 
 const LoginPage = () => {
   const auth = useAuth();
@@ -13,7 +14,9 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
 
   const onSubmit = async () => {
-    let res = await auth.loginAction(username, password);
+    const hashedPassword = SHA256(password).toString();
+    console.log(hashedPassword);
+    let res = await auth.loginAction(username, hashedPassword);
     console.log(res);
   };
 
