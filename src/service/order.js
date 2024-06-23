@@ -32,3 +32,15 @@ export async function addOrder(order){
     }
     return res;
 }
+
+export async function AdminOrder(){
+    let url = `${BASEURL}/admin_order`
+    let order
+    try{
+        order = getPrivateJson(url)
+    }catch (e){
+        console.log(e)
+        order = []
+    }
+    return order
+}
