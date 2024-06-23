@@ -1,6 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import { Table, Button, InputNumber } from "antd";
+import { useState, useEffect } from "react";
+import { Table, Button, InputNumber, DatePicker } from "antd";
 import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
 import BookCard from "./book_card";
 import { useAuth } from "../service/AuthProvider";
@@ -8,15 +8,33 @@ import { addOrder } from "../service/order";
 import { deleteCart } from "../service/cart";
 import { formatTimeD } from "../utils/time";
 
+const { RangePicker } = DatePicker;
+
 export default function CartItemTable({ carts }) {
   const auth = useAuth();
   const date = formatTimeD(new Date());
   const [quantity, setQuantity] = useState(1);
+  const [filteredCarts, setFilteredCarts] = useState(carts);
+  const [dateRange, setDateRange] = useState([null, null]);
 
   const saveBooknum = (value) => {
     console.log(value);
     setQuantity(value);
   };
+
+  useEffect(() => {
+    if (dateRange && dateRange[0] && dateRange[1]) {
+      const [startDate, endDate] = dateRange;
+      const filtered = carts.filter((cart) => {
+        const cartDate = new Date(cart.date);
+        return cartDate >= startDate && cartDate <= endDate;
+      });
+      setFilteredCarts(filtered);
+    } else {
+      // 如果没有选择日期范围，可以选择显示所有订单或不显示
+      setFilteredCarts(carts);
+    }
+  }, [carts, dateRange]); // 当orders或dateRange更改时重新过滤
 
   const columns = [
     {
@@ -83,11 +101,20 @@ export default function CartItemTable({ carts }) {
     },
   ];
 
+  const handleDateRangeChange = (dates) => {
+    setDateRange(dates);
+  };
+
   return (
-    <Table
-      columns={columns}
-      dataSource={carts}
-      rowKey={(record) => record.book.id}
-    />
+    <>
+      <>
+        筛选购物车日期 <RangePicker onChange={handleDateRangeChange} />
+      </>
+      <Table
+        columns={columns}
+        dataSource={filteredCarts}
+        rowKey={(record) => record.book.id}
+      />
+    </>
   );
 }
