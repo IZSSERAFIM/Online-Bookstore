@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 export default function BookCard({ book }) {
+  console.log(book)
   return (
     <Link to={`/book/${book.id}`}>
       <Card
@@ -11,7 +12,7 @@ export default function BookCard({ book }) {
         cover={
           <img
             alt={book.title}
-            src={book.cover}
+            src={(book.cover)}
             style={{
               width: "100%",
               height: "400px",
