@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 const { Meta } = Card;
 
 export default function BookCard({ book }) {
-  console.log(book)
   return (
     <Link to={`/book/${book.id}`}>
       <Card
