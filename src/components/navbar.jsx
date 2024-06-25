@@ -29,17 +29,17 @@ export default function NavBar({ user }) {
       label: user?.name,
       icon: <UserOutlined />,
     },
-    {
-      key: "password",
-      label: "修改密码",
-      icon: <FormOutlined />,
-    },
-    {
-      key: "balance",
-      label: `余额`,
-      icon: <AccountBookOutlined />,
-      disabled: true,
-    },
+    // {
+    //   key: "password",
+    //   label: "修改密码",
+    //   icon: <FormOutlined />,
+    // },
+    // {
+    //   key: "balance",
+    //   label: `余额`,
+    //   icon: <AccountBookOutlined />,
+    //   disabled: true,
+    // },
     {
       key: "logout",
       label: "登出",
