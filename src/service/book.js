@@ -1,3 +1,4 @@
+import { message } from 'antd'
 import {BASEURL, get, getJson} from './common'
 
 export async function getAllBookData(){
@@ -57,4 +58,61 @@ export async function getBestSellingBooks() {
         books = null;
     }
     return books;
+}
+
+export async function addBook(book) {
+    const url = `${BASEURL}/books/add`;
+    let response;
+    try {
+        response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(book),
+            credentials: "include"
+        });
+        message.success("添加成功");
+    } catch (e) {
+        console.log(e);
+        response = null;
+        message.error("添加失败");
+    }
+    return response;
+}
+
+export async function addBookStock(id, stock) {
+    const url = `${BASEURL}/books/add_stock`;
+    let response;
+    try {
+        response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id, stock})
+        });
+    } catch (e) {
+        console.log(e);
+        response = null;
+    }
+    return response;
+}
+
+export async function deleteBook(id) {
+    const url = `${BASEURL}/books/delete`;
+    let response;
+    try {
+        response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id})
+        });
+    } catch (e) {
+        console.log(e);
+        response = null;
+    }
+    return response;
 }

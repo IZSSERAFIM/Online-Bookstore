@@ -13,8 +13,8 @@ interceptor.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    // 如果响应返回的状态码是401，那么就重定向到登录页面
-    if (error.response && error.response.status === 401) {
+    // 如果响应返回的状态码是401,500，那么就重定向到登录页面
+    if ((error.response && error.response.status === 401)||(error.response && error.response.status === 500)) {
       if (window.location.pathname !== "/login") {
         window.location.href = "/login";
       }
