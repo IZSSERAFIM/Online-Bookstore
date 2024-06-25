@@ -33,7 +33,7 @@ export async function addOrder(order){
     return res;
 }
 
-export async function AdminOrder(){
+export async function AdminGetAllOrder(){
     let url = `${BASEURL}/admin_order`
     let order
     try{
