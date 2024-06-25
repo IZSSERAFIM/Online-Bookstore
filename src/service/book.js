@@ -115,9 +115,11 @@ export async function deleteBook(id) {
             body: JSON.stringify({id}),
             credentials: "include"
         });
+        message.success("删除成功");
     } catch (e) {
         console.log(e);
         response = null;
+        message.error("删除失败，请重试");
     }
     return response;
 }

@@ -25,12 +25,6 @@ const handleSubmit = async (values) => {
       icon: <ExclamationCircleOutlined />,
       async onOk() {
         const res = await deleteBook(book.id);
-        if (res.success) {
-          message.success("删除成功");
-          onOk();
-        } else {
-          message.error("删除失败，请重试");
-        }
       },
     });
   };

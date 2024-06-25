@@ -21,17 +21,12 @@ export default function AdminBook() {
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
 
-  let total;
-
-  const getBooks = async () => {
-    let books = await getAllBookData();
-    total = books.length;
-    console.log(books);
-    console.log(total);
-    setBooks(books);
-  };
-
   useEffect(() => {
+    const getBooks = async () => {
+      let books = await getAllBookData();
+      console.log(books);
+      setBooks(books);
+    };
     getBooks();
   }, []);
 
@@ -50,7 +45,6 @@ export default function AdminBook() {
     await addBook(book); // 确保等待这个异步操作完成
     form.resetFields();
     setFileList([]);
-    getBooks(); // 现在这里会获取到最新的书籍数据
   };
 
   const uploadButton = (
