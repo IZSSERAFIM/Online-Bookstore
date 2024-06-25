@@ -1,20 +1,23 @@
 import React from "react";
 import { Button, Form, Input, Modal, message } from "antd";
-import { addBookStock, deleteBook } from "../service/book";
+import { updateBook, deleteBook } from "../service/book";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 export default function ModifyBookModal({ book, onOk, onCancel }) {
   const [form] = Form.useForm();
 
-  const handleSubmit = async (values) => {
-    const res = await addBookStock({ ...values, id: book.id });
-    if (res.success) {
-      message.success("书籍库存修改成功");
-      onOk();
-    } else {
-      message.error("修改失败，请重试");
-    }
+const handleSubmit = async (values) => {
+  console.log(values.stock+" "+book.id);
+  // 仅保留stock字段和id字段
+  let updatedValues = {
+    stock: values.stock, // 假设values对象中已经有了stock字段
+    id: book.id, // 使用book.id作为书籍的唯一标识符
   };
+  console.log(updatedValues);
+  const res = await updateBook(updatedValues);
+  console.log(res);
+  onOk();
+};
 
   const handleDelete = async () => {
     Modal.confirm({

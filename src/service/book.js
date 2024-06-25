@@ -81,8 +81,9 @@ export async function addBook(book) {
     return response;
 }
 
-export async function addBookStock(id, stock) {
-    const url = `${BASEURL}/books/add_stock`;
+export async function updateBook(bookid_stock) {
+    const url = `${BASEURL}/books/update`;
+    console.log(JSON.stringify({bookid_stock}));
     let response;
     try {
         response = await fetch(url, {
@@ -90,11 +91,14 @@ export async function addBookStock(id, stock) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id, stock})
+            body: JSON.stringify({bookid_stock}),
+            credentials: "include"
         });
+        message.success("书籍库存修改成功");
     } catch (e) {
         console.log(e);
         response = null;
+        message.error("修改失败，请重试");
     }
     return response;
 }
@@ -108,7 +112,8 @@ export async function deleteBook(id) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({id})
+            body: JSON.stringify({id}),
+            credentials: "include"
         });
     } catch (e) {
         console.log(e);
