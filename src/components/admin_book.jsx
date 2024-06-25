@@ -45,6 +45,8 @@ export default function AdminBook() {
     await addBook(book); // 确保等待这个异步操作完成
     form.resetFields();
     setFileList([]);
+    const updatedBooks = await getAllBookData();
+    setBooks(updatedBooks);
   };
 
   const uploadButton = (
