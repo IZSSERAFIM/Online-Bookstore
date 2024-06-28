@@ -23,7 +23,7 @@ export default function BookPage() {
   const getComments = async () => {
     let comments = await getCommentsById(id);
     setComments(comments);
-    console.log({ comments: comments });
+    // console.log({ comments: comments });
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function BookPage() {
     getBookData();
     // 获取评论
     getComments();
-  }, [id]); // 当 id 发生变化时，重新查找书籍
+  }, [id,comments]); // 当 id 发生变化时，重新查找书籍
 
   return (
     <PrivateLayout>

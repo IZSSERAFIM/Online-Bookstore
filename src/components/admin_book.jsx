@@ -28,7 +28,7 @@ export default function AdminBook() {
       setBooks(books);
     };
     getBooks();
-  }, []);
+  }, [books]);
 
   const handleUploadChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);

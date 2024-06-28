@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import { Layout, Space } from "antd";
 import { Content, Footer, Header } from "antd/es/layout/layout";
 import NavBar from "./navbar";
@@ -12,6 +13,9 @@ export function PrivateLayout({ children }) {
   const [profile, setProfile] = useState();
 
   const getProfileData = async () => {
+    if (auth.user !== null) {
+      return <Navigate to="/login" />;
+    }
     let profile = await getProfile({ name: auth.user, password: auth.token });
     setProfile(profile);
     console.log({ profile: profile });

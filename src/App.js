@@ -15,15 +15,15 @@ function App() {
   const [data, setData] = React.useState(defaultData);
 
   // 使用api实例发送请求
-  React.useEffect(() => {
-    interceptor.get('/**')
-      .then(response => {
-        console.log(response);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
+  // React.useEffect(() => {
+  //   interceptor.get('/**') // 更新为你实际的API路径
+  //     .then(response => {
+  //       console.log(response);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <ConfigProvider

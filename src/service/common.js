@@ -1,3 +1,5 @@
+import interceptor from "./interceptor";
+
 export async function getJson(url){
     let res = await fetch(url, {
         method: "GET",

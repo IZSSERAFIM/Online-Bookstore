@@ -15,7 +15,7 @@ const LoginPage = () => {
 
   const onSubmit = async () => {
     const hashedPassword = SHA256(password).toString();
-    console.log(hashedPassword);
+    // console.log(hashedPassword);
     let res = await auth.loginAction(username, hashedPassword);
     console.log(res);
   };

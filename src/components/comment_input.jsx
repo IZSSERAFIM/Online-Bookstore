@@ -8,6 +8,7 @@ export default function CommentInput({ bookid, username, autoFocus }) {
   const handleSubmit = () => {
     const comment = { bookId: bookid, text: input, username: username };
     postComment(comment);
+    setInput("");
   };
 
   const [input, setInput] = useState("");

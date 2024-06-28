@@ -2,6 +2,7 @@ import { useContext, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { login } from "./login";
+// import {logout} from "./logout";
 import { register } from "./register";
 
 const AuthContext = createContext();
@@ -35,11 +36,14 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const logout = () => {
+  const logoutAction = () => {
     setUser(null);
     setToken("");
     localStorage.removeItem("site");
-    navigate("/login");
+    localStorage.removeItem("user");
+    console.log("has cleared user and token");
+    // logout();
+    // navigate("/login");
   };
 
   const registerAction = async (username, password, email) => {
@@ -58,7 +62,7 @@ const AuthProvider = ({ children }) => {
   }
 
   return (
-    <AuthContext.Provider value={{ token, user, loginAction, logout, registerAction }}>
+    <AuthContext.Provider value={{ token, user, loginAction, logoutAction, registerAction }}>
       {children}
     </AuthContext.Provider>
   );
