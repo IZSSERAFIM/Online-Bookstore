@@ -8,6 +8,7 @@ import { useAuth } from "../service/AuthProvider";
 export default function Profile() {
   const auth = useAuth();
   const [profile, setProfile] = useState();
+  const [fileList, setFileList] = useState([]);
 
   const getProfileData = async () => {
     let profile = await getProfile({ name: auth.user, password: auth.token });
@@ -20,6 +21,10 @@ export default function Profile() {
     getProfileData();
   };
 
+  const handleUploadChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
   useEffect(() => {
     getProfileData();
   }, []);
@@ -27,17 +32,14 @@ export default function Profile() {
   return profile ? (
     <PrivateLayout>
       <Card title="个人信息" style={{ maxWidth: 600, margin: "auto" }}>
-        <Form
-          layout="vertical"
-          onFinish={handleFinish}
-          initialValues={profile}
-        >
+        <Form layout="vertical" onFinish={handleFinish} initialValues={profile}>
           <Form.Item label="头像">
             <Upload
-              accept="image/*"
               listType="picture-card"
-              fileList={[]}
-              beforeUpload={() => false}
+              fileList={fileList}
+              onChange={handleUploadChange}
+              withCredentials={true}
+              action="http://localhost:8080/upload"
             >
               <Avatar
                 size={100}
