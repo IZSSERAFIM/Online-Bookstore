@@ -65,6 +65,12 @@ export default function CartItemTable({ carts }) {
       ),
     },
     {
+      title: "总价",
+      dataIndex: "book",
+      key: "price",
+      render: (book) => `${quantity*book.price/100}￥`,
+    },
+    {
       title: "操作",
       key: "action",
       render: (carts) => {
@@ -93,6 +99,7 @@ export default function CartItemTable({ carts }) {
             <Button
               type="primary"
               icon={<DeleteOutlined />}
+              danger={true}
               onClick={() => deleteCart(carts.id)} // 使用carts.id
             />
           </>
@@ -114,6 +121,7 @@ export default function CartItemTable({ carts }) {
         columns={columns}
         dataSource={filteredCarts}
         rowKey={(record) => record.book.id}
+        size="small"
       />
     </>
   );
