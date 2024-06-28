@@ -6,7 +6,7 @@ export async function getAllBookData(){
     let books;
     try {
         books = await getJson(url);
-        console.log(books)
+        // console.log(books)
     } catch(e) {
         console.log(e);
         books = {books: []}
@@ -34,7 +34,7 @@ export async function getHelloText(){
 
 export async function searchBooks(keyword, pageIndex, pageSize) {
     const url = `${BASEURL}/books?keyword=${keyword}&pageIndex=${pageIndex}&pageSize=${pageSize}`;
-    console.log(url);
+    // console.log(url);
     let books;
     try {
         books = await getJson(url);
@@ -81,9 +81,9 @@ export async function addBook(book) {
     return response;
 }
 
-export async function updateBook(bookid_stock) {
+export async function updateBook(updatedBook) {
     const url = `${BASEURL}/books/update`;
-    console.log(JSON.stringify({bookid_stock}));
+    console.log(JSON.stringify({updatedBook}));
     let response;
     try {
         response = await fetch(url, {
@@ -91,7 +91,7 @@ export async function updateBook(bookid_stock) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({bookid_stock}),
+            body: JSON.stringify({updatedBook}),
             credentials: "include"
         });
         message.success("书籍库存修改成功");

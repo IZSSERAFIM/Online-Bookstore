@@ -56,7 +56,7 @@ const navMenuItems = navItems.map((item) => ({
           overlay={
             <Menu onClick={(e) => handleMenuClick(e.key)}>
               {dropMenuItems.map((item) => (
-                <Menu.Item key={item.key} danger={item.danger}>
+                <Menu.Item key={item.key} danger={item.danger} icon={item.icon}>
                   {item.label}
                 </Menu.Item>
               ))}

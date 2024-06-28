@@ -1,21 +1,16 @@
 import { React, useEffect, useState } from "react";
-import { Table, Button } from "antd";
+import { Table, Button, Pagination, Space } from "antd";
 import ModifyBookModal from "./modify_Book_modal";
-import { getAllBookData } from "../service/book";
 
-export default function BookTable({ initbooks }) {
+export default function BookTable({
+  initbooks,
+  pageSize,
+  current,
+  total,
+  onPageChange,
+}) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentBook, setCurrentBook] = useState(null);
-  const [books, setBooks] = useState(initbooks);
-
-  useEffect(() => {
-    const fetchBooks = async () => {
-      const initialBooks = await getAllBookData(); // 假设这是获取书籍数据的函数
-      setBooks(initialBooks); // 使用获取到的数据设置books状态
-    };
-
-    fetchBooks(); // 调用函数获取数据
-  }, []); // 空依赖数组意味着这个effect只在组件加载时运行一次
 
   const columns = [
     {
@@ -68,17 +63,21 @@ export default function BookTable({ initbooks }) {
     <>
       <Table
         columns={columns}
-        dataSource={books}
+        dataSource={initbooks}
         rowKey="id"
-        pagination={{ pageSize: 3 }}
+        pagination={false}
+      />
+      <Pagination
+        current={current}
+        pageSize={pageSize}
+        onChange={onPageChange}
+        total={total}
       />
       {isModalVisible && (
         <ModifyBookModal
           book={currentBook}
           onOk={async () => {
-            console.log("onOk");
-            const updatedBooks = await getAllBookData(); // 调用 getAllBooks 获取最新的书籍数据
-            setBooks(updatedBooks); // 使用新数据更新 books 状态
+            console.log("update book");
             setIsModalVisible(false); // 关闭模态框
           }}
           onCancel={() => setIsModalVisible(false)}

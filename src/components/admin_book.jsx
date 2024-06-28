@@ -13,22 +13,44 @@ import {
 } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import BookTable from "../components/book_table";
-
+import { useSearchParams } from "react-router-dom";
 import { getAllBookData, addBook } from "../service/book";
+import { searchBooks } from "../service/book";
 
 export default function AdminBook() {
   const [books, setBooks] = useState([]);
   const [form] = Form.useForm();
   const [fileList, setFileList] = useState([]);
+  const { Search } = Input;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [totalPage, setTotalPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+  const keyword = searchParams.get("keyword") || "";
+  const pageIndex =
+    searchParams.get("pageIndex") != null
+      ? Number.parseInt(searchParams.get("pageIndex"))
+      : 0;
+  const pageSize =
+    searchParams.get("pageSize") != null
+      ? Number.parseInt(searchParams.get("pageSize"))
+      : 3;
+
+  const getBooks = async () => {
+    setIsLoading(true); // 开始加载数据
+    let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
+    // console.log(pagedBooks);
+    let books = pagedBooks.items;
+    // console.log(books);
+    let totalPage = pagedBooks.total;
+    // console.log(totalPage);
+    setBooks(books);
+    setTotalPage(totalPage);
+    setIsLoading(false); // 数据加载完成
+  };
 
   useEffect(() => {
-    const getBooks = async () => {
-      let books = await getAllBookData();
-      console.log(books);
-      setBooks(books);
-    };
     getBooks();
-  }, [books]);
+  }, [keyword, pageIndex, pageSize, books]);
 
   const handleUploadChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -55,6 +77,18 @@ export default function AdminBook() {
       <div style={{ marginTop: 8 }}>Upload</div>
     </div>
   );
+
+  const handleSearch = (keyword) => {
+    setSearchParams({
+      keyword: keyword,
+      pageIndex: 0,
+      pageSize: 3,
+    });
+  };
+
+  const handlePageChange = (page) => {
+    setSearchParams({ ...searchParams, pageIndex: page - 1 });
+  };
 
   return (
     <div>
@@ -112,7 +146,19 @@ export default function AdminBook() {
         </Col>
         <Col span={8}>
           <Card title="书籍列表" bordered={false} style={{ width: 1280 }}>
-            <BookTable books={books} />
+            <Search
+              placeholder="输入关键字"
+              onSearch={handleSearch}
+              enterButton
+              size="large"
+            />
+            <BookTable
+              initbooks={books}
+              pageSize={pageSize}
+              total={totalPage * pageSize}
+              current={pageIndex + 1}
+              onPageChange={handlePageChange}
+            />
           </Card>
         </Col>
       </Row>
