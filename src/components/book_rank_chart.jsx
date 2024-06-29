@@ -48,18 +48,21 @@ export default function BookRankChart({ books }) {
       }}
     >
       <Column {...config} />
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          width: "100%",
-        }}
-      >
-        {location.pathname === "/rank" &&
-          books
-            .slice(0, 5)
-            .map((book) => <BookCard style={{ flex: 1 }} book={book} />)}
-      </div>
+      <details>
+        <summary>热销书籍</summary>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            width: "100%",
+          }}
+        >
+          {location.pathname === "/rank" &&
+            books
+              .slice(0, 5)
+              .map((book) => <BookCard style={{ flex: 1 }} book={book} />)}
+        </div>
+      </details>
     </div>
   );
 }
