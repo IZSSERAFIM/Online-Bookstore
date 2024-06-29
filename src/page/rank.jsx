@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Form, Input, Upload, Avatar, Spin } from "antd";
+import { Button, Card, Form, Input, Upload, Avatar, Spin,DatePicker } from "antd";
 import { PrivateLayout } from "../components/layout";
 import BookRankChart from "../components/book_rank_chart";
 import { getBestSellingBooks } from "../service/book";
@@ -8,10 +8,13 @@ import { useAuth } from "../service/AuthProvider";
 import { getAllOrders } from "../service/order";
 
 export default function RankPage() {
+  const { RangePicker } = DatePicker;
   const auth = useAuth();
   const [soldbooks, setsoldBooks] = useState([]);
   const boughtBooks = [];
   const [ordersData, setOrdersData] = useState([]);
+  const [dateRange, setDateRange] = useState([null, null]);
+  const [filteredOrders, setFilteredOrders] = useState([]);
 
   const getTopBooks = async () => {
     let response = await getBestSellingBooks();
@@ -30,11 +33,23 @@ export default function RankPage() {
   useEffect(() => {
     getTopBooks();
     getOrdersData();
-  }, [ordersData]);
+
+    if (dateRange && dateRange[0] && dateRange[1]) {
+      const [startDate, endDate] = dateRange;
+      const filtered = ordersData.filter((order) => {
+        const orderDate = new Date(order.date);
+        return orderDate >= startDate && orderDate <= endDate;
+      });
+      setFilteredOrders(filtered);
+    } else {
+      // 如果没有选择日期范围，可以选择显示所有订单或不显示
+      setFilteredOrders(ordersData);
+    }
+  }, [ordersData,dateRange]);
 
   // 确保ordersData和ordersData.orders存在
-  if (ordersData) {
-    ordersData.forEach((order) => {
+  if (filteredOrders) {
+    filteredOrders.forEach((order) => {
       order.orderItemList.forEach((item) => {
         const { id, title, author, description, price } = item.book;
         if (bookCounts[id]) {
@@ -62,8 +77,15 @@ export default function RankPage() {
     boughtBooks.sort((a, b) => b.sales - a.sales);
   }
 
+  const handleDateRangeChange = (dates) => {
+    setDateRange(dates);
+  };
+
   return (
     <PrivateLayout>
+      <Card>
+        筛选日期 <RangePicker onChange={handleDateRangeChange} />
+      </Card>
       <h1 style={{ textAlign: "center" }}>Top 5 Best Selling Books</h1>
       <Card className="card-container">
         <BookRankChart books={soldbooks} />
