@@ -60,6 +60,18 @@ export async function getBestSellingBooks() {
     return books;
 }
 
+// export async function getUserTopBook(username) {
+//     const url = `${BASEURL}/books/user_top?username=${username}`;
+//     let books;
+//     try {
+//         books = await getJson(url);
+//     } catch (e) {
+//         console.log(e);
+//         books = null;
+//     }
+//     return books;
+// }
+
 export async function addBook(book) {
     const url = `${BASEURL}/books/add`;
     let response;
