@@ -31,7 +31,7 @@ export default function BookPage() {
     getBookData();
     // 获取评论
     getComments();
-  }, [id,comments]); // 当 id 发生变化时，重新查找书籍
+  }, []); // 空数组作为依赖项，表示只在组件挂载时执行一次
 
   return (
     <PrivateLayout>
