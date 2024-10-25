@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Form, Input, Upload, Avatar, Spin,DatePicker } from "antd";
+import { Button, Card, Form, Input, Upload, Avatar, Spin, DatePicker } from "antd";
 import { PrivateLayout } from "../components/layout";
 import BookRankChart from "../components/book_rank_chart";
 import { getBestSellingBooks } from "../service/book";
@@ -33,7 +33,9 @@ export default function RankPage() {
   useEffect(() => {
     getTopBooks();
     getOrdersData();
+  }, []); // 空依赖数组，确保只在组件挂载时调用一次
 
+  useEffect(() => {
     if (dateRange && dateRange[0] && dateRange[1]) {
       const [startDate, endDate] = dateRange;
       const filtered = ordersData.filter((order) => {
@@ -45,7 +47,7 @@ export default function RankPage() {
       // 如果没有选择日期范围，可以选择显示所有订单或不显示
       setFilteredOrders(ordersData);
     }
-  }, [ordersData,dateRange]);
+  }, [ordersData, dateRange]); // 当ordersData或dateRange更改时重新过滤
 
   // 确保ordersData和ordersData.orders存在
   if (filteredOrders) {

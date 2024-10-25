@@ -38,11 +38,8 @@ export default function AdminBook() {
   const getBooks = async () => {
     setIsLoading(true); // 开始加载数据
     let pagedBooks = await searchBooks(keyword, pageIndex, pageSize);
-    // console.log(pagedBooks);
     let books = pagedBooks.items;
-    // console.log(books);
     let totalPage = pagedBooks.total;
-    // console.log(totalPage);
     setBooks(books);
     setTotalPage(totalPage);
     setIsLoading(false); // 数据加载完成
@@ -50,7 +47,7 @@ export default function AdminBook() {
 
   useEffect(() => {
     getBooks();
-  }, [keyword, pageIndex, pageSize, books]);
+  }, [keyword, pageIndex, pageSize]); // 仅在 keyword, pageIndex 或 pageSize 变化时调用
 
   const handleUploadChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -67,8 +64,7 @@ export default function AdminBook() {
     await addBook(book); // 确保等待这个异步操作完成
     form.resetFields();
     setFileList([]);
-    const updatedBooks = await getAllBookData();
-    setBooks(updatedBooks);
+    await getBooks(); // 提交后重新获取书籍数据
   };
 
   const uploadButton = (

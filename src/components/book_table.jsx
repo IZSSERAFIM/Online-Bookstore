@@ -11,6 +11,11 @@ export default function BookTable({
 }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [currentBook, setCurrentBook] = useState(null);
+  const [books, setBooks] = useState(initbooks);
+
+  useEffect(() => {
+    setBooks(initbooks);
+  }, [initbooks]);
 
   const columns = [
     {
@@ -59,11 +64,18 @@ export default function BookTable({
     },
   ];
 
+  const handleUpdateBook = (updatedBook) => {
+    setBooks((prevBooks) =>
+      prevBooks.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+    );
+    setIsModalVisible(false);
+  };
+
   return (
     <>
       <Table
         columns={columns}
-        dataSource={initbooks}
+        dataSource={books}
         rowKey="id"
         pagination={false}
       />
@@ -76,10 +88,7 @@ export default function BookTable({
       {isModalVisible && (
         <ModifyBookModal
           book={currentBook}
-          onOk={async () => {
-            console.log("update book");
-            setIsModalVisible(false); // 关闭模态框
-          }}
+          onOk={handleUpdateBook}
           onCancel={() => setIsModalVisible(false)}
         />
       )}

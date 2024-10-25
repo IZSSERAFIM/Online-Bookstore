@@ -1,4 +1,4 @@
-import {React,useState} from "react";
+import { React, useState } from "react";
 import { Button, Form, Input, Modal, message, Upload } from "antd";
 import { updateBook, deleteBook } from "../service/book";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
@@ -16,13 +16,13 @@ export default function ModifyBookModal({ book, onOk, onCancel }) {
       title: values.title,
       author: values.author,
       price: values.price,
-      // cover: values.cover,
+      cover: values.cover,
       description: values.description,
     };
     console.log(updatedValues);
     const res = await updateBook(updatedValues);
     console.log(res);
-    onOk();
+    onOk(updatedValues); // 传递更新后的书籍信息
   };
 
   const handleUploadChange = ({ fileList: newFileList }) => {
