@@ -11,7 +11,11 @@ import {
 import { DeleteOutlined, ShoppingOutlined } from "@ant-design/icons";
 import BookCard from "./book_card";
 import { useAuth } from "../service/AuthProvider";
-import { addOrder, addOrderAllSelected } from "../service/order";
+import {
+  addOrder,
+  addOrderAllSelected,
+  calculateTotalPrice,
+} from "../service/order";
 import { deleteCart } from "../service/cart";
 import { formatTimeD } from "../utils/time";
 
@@ -24,6 +28,7 @@ export default function CartItemTable({ carts, onMutate }) {
   const [filteredCarts, setFilteredCarts] = useState(carts);
   const [dateRange, setDateRange] = useState([null, null]);
   const [selectedBooks, setSelectedBooks] = useState([]);
+  const [totalPrices, setTotalPrices] = useState({});
 
   const saveBooknum = (bookId, value) => {
     setQuantities((prevQuantities) => ({
@@ -44,7 +49,16 @@ export default function CartItemTable({ carts, onMutate }) {
       // 如果没有选择日期范围，可以选择显示所有订单或不显示
       setFilteredCarts(carts);
     }
-  }, [carts, dateRange]); // 当orders或dateRange更改时重新过滤
+    carts.forEach(async (cart) => {
+      const quantity = quantities[cart.book.id] || 1;
+      const totalPrice =
+        (await calculateTotalPrice(cart.book.price, quantity)) / 100;
+      setTotalPrices((prevPrices) => ({
+        ...prevPrices,
+        [cart.book.id]: totalPrice,
+      }));
+    });
+  }, [carts, dateRange, quantities]); // 当orders或dateRange更改时重新过滤
 
   const handleSelectChange = (cartId, isSelected) => {
     setSelectedBooks((prevSelectedBooks) => {
@@ -88,7 +102,8 @@ export default function CartItemTable({ carts, onMutate }) {
       title: "总价",
       dataIndex: "book",
       key: "price",
-      render: (book) => `${((quantities[book.id] || 1) * book.price) / 100}￥`,
+      // render: (book) => `${((quantities[book.id] || 1) * book.price) / 100}￥`,
+      render: (book) => `${totalPrices[book.id] || 0}￥`,
     },
     {
       title: "操作",

@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Card, Space, Input } from "antd";
+import { Card, Space, Input, Row, Col } from "antd";
 import { useSearchParams } from "react-router-dom";
 import {PrivateLayout} from "../components/layout";
 import BookList from "../components/book_list";
 import Slideshow from "../components/slide_show";
-import { searchBooks } from "../service/book";
+import { searchBooks, searchAuthorByBook } from "../service/book";
 import Notice from "../components/notice";
 
 const { Search } = Input;
@@ -12,7 +12,7 @@ export default function HomePage() {
   const [books, setBooks] = useState([]);
   const [totalPage, setTotalPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // 添加一个isLoading状态
-
+  const [author, setAuthor] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const pageIndex = searchParams.get("pageIndex") != null ? Number.parseInt(searchParams.get("pageIndex")) : 0;
@@ -47,11 +47,36 @@ export default function HomePage() {
     setSearchParams({ ...searchParams, pageIndex: page - 1 });
   }
 
+  const handleSearchAuthorByBook = async (keyword) => {
+    try {
+      let result = await searchAuthorByBook(keyword);
+      setAuthor(result);
+    } catch (error) {
+      console.error("Error fetching author:", error);
+      setAuthor("未找到作者");
+    }
+  };
+
   return <PrivateLayout>
     <Card className="card-container">
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Notice />
-        <Search placeholder="输入关键字" onSearch={handleSearch} enterButton size="large" />
+        <Search placeholder="输入关键字查找书籍" onSearch={handleSearch} enterButton size="large" />
+        <Row gutter={16}>
+        <Col span={12}>
+          <Search
+            placeholder="查找书籍对应作者"
+            onSearch={handleSearchAuthorByBook}
+            enterButton
+            size="large"
+          />
+        </Col>
+        <Col span={12}>
+          <div style={{ padding: "8px", border: "1px solid #d9d9d9", borderRadius: "4px" }}>
+            {author || "作者姓名"}
+          </div>
+        </Col>
+      </Row>
         <Slideshow />
         <BookList books={books} pageSize={pageSize} total={totalPage * pageSize} current={pageIndex + 1} onPageChange={handlePageChange} />
       </Space>

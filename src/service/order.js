@@ -91,3 +91,17 @@ export async function AdminGetAllOrder() {
   }
   return order;
 }
+
+export async function calculateTotalPrice(price, quantity) {
+  const data = `[${price}, ${quantity}]`;
+  let url = `${BASEURL}/function/calculateTotalPrice`;
+  let res = await fetch(url, {
+    method: "POST",
+    body: data,
+    headers: {
+      "Content-Type": "text/plain",
+    },
+    credentials: "include",
+  });
+  return res.json();
+}

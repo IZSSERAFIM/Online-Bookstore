@@ -48,6 +48,21 @@ export async function searchBooks(keyword, pageIndex, pageSize) {
     return books;
 }
 
+export async function searchAuthorByBook(keyword) {
+    const url = `${BASEURL}/microservice/getBookAuthorByName/${keyword}`;
+    let author;
+    try {
+        let ans = await getJson(url);
+        console.log(ans);
+        author = ans.data;
+        console.log(author);
+    } catch (e) {
+        console.log(e);
+        author = null;
+    }
+    return author;
+}
+
 export async function getBestSellingBooks() {
     const url = `${BASEURL}/books/rank`;
     let books;
