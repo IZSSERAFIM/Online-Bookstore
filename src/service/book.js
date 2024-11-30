@@ -6,7 +6,7 @@ export async function getAllBookData(){
     let books;
     try {
         books = await getJson(url);
-        // console.log(books)
+        console.log(books)
     } catch(e) {
         console.log(e);
         books = {books: []}
@@ -149,4 +149,17 @@ export async function deleteBook(id) {
         message.error("删除失败，请重试");
     }
     return response;
+}
+
+export async function getBooksByTag(tag) {
+    const url = `${BASEURL}/books/tag?tag=${tag}`;
+    let books;
+    try {
+        books = await getJson(url);
+        console.log(books);
+    } catch (e) {
+        console.log(e);
+        books = null;
+    }
+    return books;
 }
