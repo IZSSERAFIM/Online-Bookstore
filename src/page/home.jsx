@@ -7,6 +7,7 @@ import Slideshow from "../components/slide_show";
 import BookTags from "../components/book_tags";
 import { searchBooks, searchAuthorByBook } from "../service/book";
 import Notice from "../components/notice";
+import QueryBookCard from "../components/query_book_card";
 
 const { Search } = Input;
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
   const [totalPage, setTotalPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true); // 添加一个isLoading状态
   const [author, setAuthor] = useState("");
+  const [title, setTitle] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const keyword = searchParams.get("keyword") || "";
   const pageIndex =
@@ -64,6 +66,10 @@ export default function HomePage() {
     }
   };
 
+  const handleTitleSearch = (value) => {
+    setTitle(value); // 更新 title 状态
+  };
+
   return (
     <PrivateLayout>
       <Card className="card-container">
@@ -96,9 +102,20 @@ export default function HomePage() {
               </div>
             </Col>
             <Col span={24}>
-            <BookTags setBooks={setBooks} setTotalPage={setTotalPage}/>
+              <BookTags setBooks={setBooks} setTotalPage={setTotalPage} />
             </Col>
           </Row>
+          <Row gutter={16}>
+            <Col span={24}>
+              <Search
+                placeholder="输入书名查找书籍"
+                onSearch={handleTitleSearch}
+                enterButton
+                size="large"
+              />
+            </Col>
+          </Row>
+          {title && <QueryBookCard title={title} />}
           <Slideshow />
           <BookList
             books={books}

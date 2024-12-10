@@ -1,7 +1,9 @@
 import React from "react";
 import { ConfigProvider, theme } from "antd";
 import AppRouter from "./components/router";
-import interceptor from './service/interceptor'; // 导入axios实例
+import interceptor from "./service/interceptor"; // 导入axios实例
+import { ApolloProvider } from "@apollo/client";
+import client from "./client";
 
 const defaultData = {
   borderRadius: 6,
@@ -26,23 +28,25 @@ function App() {
   // }, []);
 
   return (
-    <ConfigProvider
-      theme={{
-        algorithm: theme.defaultAlgorithm,
-        token: {
-          colorPrimary: data.colorPrimary,
-          borderRadius: data.borderRadius,
-        },
-        components: {
-          Button: {
-            colorPrimary: data.Button?.colorPrimary,
-            algorithm: data.Button?.algorithm,
+    <ApolloProvider client={client}>
+      <ConfigProvider
+        theme={{
+          algorithm: theme.defaultAlgorithm,
+          token: {
+            colorPrimary: data.colorPrimary,
+            borderRadius: data.borderRadius,
           },
-        },
-      }}
-    >
-      <AppRouter />
-    </ConfigProvider>
+          components: {
+            Button: {
+              colorPrimary: data.Button?.colorPrimary,
+              algorithm: data.Button?.algorithm,
+            },
+          },
+        }}
+      >
+        <AppRouter />
+      </ConfigProvider>
+    </ApolloProvider>
   );
 }
 
